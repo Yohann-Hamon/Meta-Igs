@@ -1,13 +1,21 @@
 import './style.css'
 import * as THREE from 'three'
 import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { Sky } from 'three/addons/objects/Sky.js';
-import { Vector3 } from 'three'
+import { CameraHelper, Vector3 } from 'three'
+const start = document.querySelector('.start')
 
+/**
+ * Starter
+ */
+
+window.addEventListener('click', () =>
+{
+  start.style.display = 'none'
+})
 /**
  * Loaders
  */
@@ -121,7 +129,7 @@ gltfLoader.load(
 
 let avatar = null
 gltfLoader.load(
-    'avatar-transformed.glb',
+    './avatar/avatar-transformed.glb',
     (gltf) =>
     {
         avatar = gltf.scene
@@ -131,7 +139,7 @@ gltfLoader.load(
         avatar.position.z = 0
         avatar.add(camera)
         camera.lookAt(avatar.position)
-        camera.position.set(avatar.position.x, avatar.position.y + 2, avatar.position.z)
+        camera.position.set(avatar.position.x, avatar.position.y + 2.2, avatar.position.z - 2)
         camera.rotation.y = Math.PI * 1
 
         avatar.traverse((child) => {
@@ -291,13 +299,159 @@ gltfLoader.load(
     }
 )
 
+let barrier1 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier1 = gltf.scene
+        barrier1.scale.set(0.4, 0.4, 0.4)
+        barrier1.position.x = -7.5
+        barrier1.position.y = 0
+        barrier1.position.z = -6.7
+
+        barrier1.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier1.rotation.y = Math.PI * 0.5
+
+        scene.add(barrier1)
+    }
+)
+
+let barrier2 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier2 = gltf.scene
+        barrier2.scale.set(0.4, 0.4, 0.4)
+        barrier2.position.x = 7.5
+        barrier2.position.y = 0
+        barrier2.position.z = -5.7
+
+        barrier2.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier2.rotation.y = Math.PI * 1.5
+
+        scene.add(barrier2)
+    }
+)
+
+let barrier3 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier3 = gltf.scene
+        barrier3.scale.set(0.4, 0.4, 0.4)
+        barrier3.position.x = 7.5
+        barrier3.position.y = 0
+        barrier3.position.z = -20.7
+
+        barrier3.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier3.rotation.y = Math.PI * 1.5
+
+        scene.add(barrier3)
+    }
+)
+
+let barrier4 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier4 = gltf.scene
+        barrier4.scale.set(0.4, 0.4, 0.4)
+        barrier4.position.x = 7.5
+        barrier4.position.y = 0
+        barrier4.position.z = -23
+
+        barrier4.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier4.rotation.y = Math.PI * 1.5
+
+        scene.add(barrier4)
+    }
+)
+
+let barrier5 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier5 = gltf.scene
+        barrier5.scale.set(0.4, 0.4, 0.4)
+        barrier5.position.x = -7.5
+        barrier5.position.y = 0
+        barrier5.position.z = -21.7
+
+        barrier5.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier5.rotation.y = Math.PI * 0.5
+
+        scene.add(barrier5)
+    }
+)
+
+let barrier6 = null
+gltfLoader.load(
+    'barrier-transformed.glb',
+    (gltf) =>
+    {
+        barrier6 = gltf.scene
+        barrier6.scale.set(0.4, 0.4, 0.4)
+        barrier6.position.x = -7.5
+        barrier6.position.y = 0
+        barrier6.position.z = -24
+
+        barrier6.traverse((child) => {
+            if(child.isMesh)
+            {
+                child.castShadow = true
+                child.receiveShadow = true
+            }
+        })
+        barrier6.rotation.y = Math.PI * 0.5
+
+        scene.add(barrier6)
+    }
+)
+
+
+
 
 /**
  * Scene
  */
 const scene = new THREE.Scene()
-const axesHelper = new THREE.AxesHelper( 100 )
-scene.add( axesHelper )
+// const axesHelper = new THREE.AxesHelper( 100 )
+// scene.add( axesHelper )
 
 
 /**
@@ -526,8 +680,8 @@ directionalLight.shadow.camera.far = 200
 scene.add(directionalLight)
 directionalLight.shadow.normalBias = 0.025
 
-const helper = new THREE.DirectionalLightHelper( directionalLight);
-scene.add( helper );
+// const helper = new THREE.DirectionalLightHelper( directionalLight);
+// scene.add( helper );
 
 // const spotLight = new THREE.SpotLight(0xffffff, 1000,300,120,0,1,2)
 // spotLight.position.set(0,40,-100)
@@ -555,8 +709,8 @@ document.body.appendChild(renderer.domElement)
 /**
  * Orbit Controls
  */
-const controls = new OrbitControls(camera, renderer.domElement)
-controls.enableDamping = true
+// const controls = new OrbitControls(camera, renderer.domElement)
+// controls.enableDamping = true
 
 /**
  * Sky
@@ -568,14 +722,13 @@ scene.add( sky );
 
 const sun = new THREE.Vector3();
 
-
 const effectController = {
-  turbidity: 10,
-  rayleigh: 3,
+  turbidity: 11.6,
+  rayleigh: 0.3,
   mieCoefficient: 0.005,
   mieDirectionalG: 0.7,
-  elevation: 18.5,
-  azimuth: 180,
+  elevation: 45,
+  azimuth: -25,
   exposure: renderer.toneMappingExposure
 };
 
@@ -601,15 +754,15 @@ function guiChanged() {
 
 }
 
-const gui = new GUI();
+// const gui = new GUI();
 
-gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
-gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
-gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
-gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
-gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
-gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
-gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
+// gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
+// gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
+// gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
+// gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
+// gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
+// gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
+// gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
 
 guiChanged();
 
@@ -621,6 +774,8 @@ let up = false
 let left = false
 let bottom = false
 let right = false
+let sprint = false
+let speed = 1
 
 window.addEventListener('keydown', (event) =>
 {
@@ -635,6 +790,9 @@ window.addEventListener('keydown', (event) =>
   }
   if(event.key === 'q'){
     left = true
+  }
+  if(event.key === 'Shift'){
+    sprint = true
   }
 })
 
@@ -651,6 +809,9 @@ window.addEventListener('keyup', (event) =>
   }
   if(event.key === 'q'){
     left = false
+  }
+  if(event.key === 'Shift'){
+    sprint = true
   }
 })
 
@@ -675,19 +836,24 @@ const loop = () =>
     const playerDirection = new THREE.Vector3()
 
     if(up){
-      playerDirection.z = deltaTime * 0.002
+      playerDirection.z = deltaTime * speed * 0.002
     }
     if(bottom){
-      playerDirection.z = -deltaTime * 0.002
+      playerDirection.z = -deltaTime * speed * 0.002
     }
     if(right){
-      playerDirection.x = -deltaTime * 0.002
+      playerDirection.x = -deltaTime * speed * 0.002
     }
     if(left){
-      playerDirection.x = deltaTime * 0.002
+      playerDirection.x = deltaTime * speed * 0.002
+    }
+    if(sprint){
+      speed = 2
+    }else if(sprint = false){
+      speed =1
     }
 
-    playerDirection.applyAxisAngle(new THREE.Vector3(0,1,0), camera.rotation.y)
+    playerDirection.applyAxisAngle(new THREE.Vector3(0,1,0), avatar.rotation.y)
 
     if(avatar){
       avatar.position.add(playerDirection)
@@ -706,20 +872,25 @@ const loop = () =>
 
        if ( document.pointerLockElement === document.body ) 
        {
-           camera.rotation.y -= event.movementX / 1000000
-           camera.rotation.x -= event.movementY / 100000
+           camera.rotation.y -= event.movementX / 500000000
+           camera.rotation.x -= event.movementY / 1000000
            
-           avatar.rotation.y -= event.movementX / 100000
+           avatar.rotation.y -= event.movementX / 300000
 
        }
      })
+    }else if(avatar = null){
+      camera.position.set(0, 2.2, 1)
     }
-
-
+    // console.log(camera.rotation.x)
+    if (camera.rotation.x < -1){
+      camera.rotation.x = -0.999
+    }else if(camera.rotation.x > 1){
+      camera.rotation.x = 0.999
+    }
 
     // Render
     renderer.render(scene, camera)
-
 }
 
 loop()

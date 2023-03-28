@@ -820,10 +820,10 @@ let previousTime = Date.now()
 * Camera & Avatar Moves
 */
 const player = {}
-player.position = new THREE.Vector3(0, 0, 0)
+player.position = new THREE.Vector3(-1.5, 0, 0)
 player.view = {
-    theta: { value: 0 },
-    phi: { value: Math.PI * 0.5, min: Math.PI * 0.2, max: Math.PI * 0.7 },
+    theta: { value: -0.2 },
+    phi: { value: Math.PI * 0.52, min: Math.PI * 0.2, max: Math.PI * 0.7 },
     elevation: 1.65,
     radius: 1.5
 }
@@ -865,7 +865,6 @@ const loop = () =>
         
     if(avatar){
 
-
         // Player position
         const playerDirection = new THREE.Vector3()
 
@@ -890,6 +889,11 @@ const loop = () =>
 
         player.position.add(playerDirection)
         avatar.position.copy(player.position)
+
+        // Player rotation
+        if(up || bottom || right || left){
+            avatar.rotation.y = player.view.theta.value + Math.PI
+        }
 
         // Player view
         const cameraPosition = new THREE.Vector3()

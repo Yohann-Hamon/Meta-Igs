@@ -128,10 +128,32 @@ gltfLoader.load(
 )
 
 let avatar = null
+
+const avatarAnimation = {}
+
+avatarAnimation.play = (name) =>
+{
+    const newAction = avatarAnimation.actions[name]
+    const oldAction = avatarAnimation.actions.current
+
+    // Same
+    if(newAction === oldAction)
+    {
+        return
+    }
+
+    newAction.reset()
+    newAction.play()
+    newAction.crossFadeFrom(oldAction, 0.2)
+
+    avatarAnimation.actions.current = newAction
+}
+
 gltfLoader.load(
-    './avatar/avatar-transformed.glb',
+    './avatar-animated-transformed.glb',
     (gltf) =>
     {
+        // Base
         avatar = gltf.scene
         avatar.scale.set(1, 1, 1)
         avatar.position.x = 0
@@ -141,13 +163,25 @@ gltfLoader.load(
         avatar.traverse((child) => {
             if(child.isMesh)
             {
+                child.frustumCulled = false
                 child.castShadow = true
                 child.receiveShadow = true
             }
         })
-        // avatar.rotation.y = camera.rotation.y
 
         scene.add(avatar)
+
+        // Animation
+        avatarAnimation.mixer = new THREE.AnimationMixer(avatar)
+        
+        avatarAnimation.actions = {}
+        
+        avatarAnimation.actions.running = avatarAnimation.mixer.clipAction(gltf.animations[0])
+        avatarAnimation.actions.standing = avatarAnimation.mixer.clipAction(gltf.animations[1])
+        avatarAnimation.actions.walking = avatarAnimation.mixer.clipAction(gltf.animations[2])
+
+        avatarAnimation.actions.current = avatarAnimation.actions.standing
+        avatarAnimation.actions.current.play()
     }
 )
 
@@ -893,6 +927,13 @@ const loop = () =>
             const playerDirection = player.position.clone().sub(oldPlayerPosition)
             const angle = Math.atan2(playerDirection.x, playerDirection.z)
             avatar.rotation.y = angle
+
+            avatarAnimation.play(sprint ? 'running' : 'walking')
+        }
+
+        else
+        {
+            avatarAnimation.play('standing')
         }
 
         // Player view
@@ -906,6 +947,9 @@ const loop = () =>
 
         camera.position.copy(cameraPosition)
         camera.lookAt(cameraTarget)
+
+        // Animation
+        avatarAnimation.mixer.update(deltaTime * 0.001)
     }
 
     // Render

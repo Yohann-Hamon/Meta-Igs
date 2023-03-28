@@ -483,43 +483,44 @@ window.addEventListener('resize', () =>
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(40, sizes.width / sizes.height)
+const camera = new THREE.PerspectiveCamera(40, sizes.width / sizes.height, 0.1, 200)
 camera.rotation.reorder('YXZ')
 scene.add(camera)
 
 /**
  * Floor
  */
-const floor = new THREE.Mesh(
+const grassStartFloor = new THREE.Mesh(
   new THREE.PlaneGeometry(15, 10),
   new THREE.MeshStandardMaterial({color: 0x008000})
 )
-floor.receiveShadow = true
-floor.geometry.rotateX(- Math.PI * 0.5)
-scene.add(floor)
+grassStartFloor.receiveShadow = true
+grassStartFloor.geometry.rotateX(- Math.PI * 0.5)
+scene.add(grassStartFloor)
 
-const floor2 = new THREE.Mesh(
+const grassEndFloor = new THREE.Mesh(
   new THREE.PlaneGeometry(15, 6),
   new THREE.MeshStandardMaterial({color: 0x154215})
 )
-floor2.receiveShadow = true
-floor2.position.z = -28
-floor2.geometry.rotateX(- Math.PI * 0.5)
-scene.add(floor2)
+grassEndFloor.receiveShadow = true
+grassEndFloor.position.z = -28
+grassEndFloor.geometry.rotateX(- Math.PI * 0.5)
+scene.add(grassEndFloor)
 
 //street
 const streetFloor = new THREE.Mesh(
-  new THREE.PlaneGeometry(15,20),
+  new THREE.PlaneGeometry(1000,1000),
   new THREE.MeshStandardMaterial({color: 0x2a2a2a})
 )
 streetFloor.receiveShadow = true
 streetFloor.geometry.rotateX(- Math.PI * 0.5)
+streetFloor.position.y = -0.1
 streetFloor.position.z = -15
 scene.add(streetFloor)
 
 //StreetBump
 const streetBump = new THREE.Mesh(
-  new THREE.BoxGeometry(15,0.4, 0.05),
+  new THREE.BoxGeometry(1000,0.4, 0.05),
   new THREE.MeshStandardMaterial({color: 0x636363})
 )
 streetBump.receiveShadow = true
@@ -616,7 +617,7 @@ scene.add(lilGardenBackWall)
  */
 
 //création des brins d'herbes "blade"s
-const sampler = new MeshSurfaceSampler(floor).build();
+const sampler = new MeshSurfaceSampler(grassStartFloor).build();
 const bladesCount = 50000
 const bladeGeometry = new THREE.ConeGeometry(0.05, 0.2, 3);
 const bladeMaterial = new THREE.MeshStandardMaterial({
@@ -641,7 +642,7 @@ for (let i = 0; i < bladesCount; i++) {
 
 
 //création des brins d'herbes "blade"s
-const sampler2 = new MeshSurfaceSampler(floor2).build();
+const sampler2 = new MeshSurfaceSampler(grassEndFloor).build();
 const bladesCount2 = 5000
 const bladeGeometry2 = new THREE.ConeGeometry(0.05, 0.2, 3);
 const bladeMaterial2 = new THREE.MeshStandardMaterial({

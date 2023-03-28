@@ -825,7 +825,7 @@ player.view = {
     theta: { value: -0.2 },
     phi: { value: Math.PI * 0.52, min: Math.PI * 0.2, max: Math.PI * 0.7 },
     elevation: 1.65,
-    radius: 1.5
+    radius: 2.5
 }
 
 document.body.addEventListener( 'mousedown', () => {
@@ -856,9 +856,6 @@ const loop = () =>
 {
     window.requestAnimationFrame(loop)
 
-    // Update controls
-    // controls.update()
-
     const currentTime = Date.now()
     const deltaTime = currentTime - previousTime
     previousTime = currentTime
@@ -887,12 +884,15 @@ const loop = () =>
 
         playerDirection.applyAxisAngle(new THREE.Vector3(0, 1, 0), player.view.theta.value)
 
+        const oldPlayerPosition = player.position.clone()
         player.position.add(playerDirection)
         avatar.position.copy(player.position)
 
         // Player rotation
         if(up || bottom || right || left){
-            avatar.rotation.y = player.view.theta.value + Math.PI
+            const playerDirection = player.position.clone().sub(oldPlayerPosition)
+            const angle = Math.atan2(playerDirection.x, playerDirection.z)
+            avatar.rotation.y = angle
         }
 
         // Player view

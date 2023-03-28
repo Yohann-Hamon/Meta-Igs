@@ -899,7 +899,7 @@ const loop = () =>
         // Player position
         const playerDirection = new THREE.Vector3()
 
-        let speed = sprint ? 2 : 1
+        let speed = sprint ? 3 : 1
         speed *= deltaTime
         speed *= 0.002
 

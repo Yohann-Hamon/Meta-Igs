@@ -491,16 +491,16 @@ scene.add(camera)
  * Floor
  */
 const grassStartFloor = new THREE.Mesh(
-  new THREE.PlaneGeometry(15, 10),
-  new THREE.MeshStandardMaterial({color: 0x008000})
+    new THREE.PlaneGeometry(15, 10),
+    new THREE.MeshStandardMaterial({color: 0x008000})
 )
 grassStartFloor.receiveShadow = true
 grassStartFloor.geometry.rotateX(- Math.PI * 0.5)
 scene.add(grassStartFloor)
 
 const grassEndFloor = new THREE.Mesh(
-  new THREE.PlaneGeometry(15, 6),
-  new THREE.MeshStandardMaterial({color: 0x154215})
+    new THREE.PlaneGeometry(15, 6),
+    new THREE.MeshStandardMaterial({color: 0x154215})
 )
 grassEndFloor.receiveShadow = true
 grassEndFloor.position.z = -28
@@ -509,8 +509,8 @@ scene.add(grassEndFloor)
 
 //street
 const streetFloor = new THREE.Mesh(
-  new THREE.PlaneGeometry(1000,1000),
-  new THREE.MeshStandardMaterial({color: 0x2a2a2a})
+    new THREE.PlaneGeometry(1000,1000),
+new THREE.MeshStandardMaterial({color: 0x2a2a2a})
 )
 streetFloor.receiveShadow = true
 streetFloor.geometry.rotateX(- Math.PI * 0.5)
@@ -520,8 +520,8 @@ scene.add(streetFloor)
 
 //StreetBump
 const streetBump = new THREE.Mesh(
-  new THREE.BoxGeometry(1000,0.4, 0.05),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(1000,0.4, 0.05),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 streetBump.receiveShadow = true
 streetBump.geometry.rotateX(- Math.PI * 0.5)
@@ -531,8 +531,8 @@ scene.add(streetBump)
 
 //StreetBump
 const streetBump2 = new THREE.Mesh(
-  new THREE.BoxGeometry(5,13, 0.05),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(5,13, 0.05),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 streetBump2.receiveShadow = true
 streetBump2.geometry.rotateX(- Math.PI * 0.5)
@@ -542,8 +542,8 @@ streetBump2.position.z = -13.5
 scene.add(streetBump2)
 
 const streetBump3 = new THREE.Mesh(
-  new THREE.BoxGeometry(5,13, 0.05),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(5,13, 0.05),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 streetBump3.receiveShadow = true
 streetBump3.geometry.rotateX(- Math.PI * 0.5)
@@ -554,8 +554,8 @@ scene.add(streetBump3)
 
 //lil-garden walls
 const lilGardenWall = new THREE.Mesh(
-  new THREE.BoxGeometry(5,0.3, 2),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(5,0.3, 2),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 lilGardenWall.receiveShadow = true
 lilGardenWall.geometry.rotateX(- Math.PI * 0.5)
@@ -565,8 +565,8 @@ lilGardenWall.position.z = -12.18
 scene.add(lilGardenWall)
 
 const lilGardenFrontWall = new THREE.Mesh(
-  new THREE.BoxGeometry(3.6,0.3, 0.5),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(3.6,0.3, 0.5),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 lilGardenFrontWall.receiveShadow = true
 lilGardenFrontWall.geometry.rotateX(- Math.PI * 0.5)
@@ -577,8 +577,8 @@ lilGardenFrontWall.rotation.y = Math.PI * 1.5
 scene.add(lilGardenFrontWall)
 
 const lilGardenWall2 = new THREE.Mesh(
-  new THREE.BoxGeometry(3 ,0.3 , 0.5),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(3 ,0.3 , 0.5),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 lilGardenWall2.receiveShadow = true
 lilGardenWall2.geometry.rotateX(- Math.PI * 0.5)
@@ -588,8 +588,8 @@ lilGardenWall2.position.z = -15.8
 scene.add(lilGardenWall2)
 
 const lilGardenWall3 = new THREE.Mesh(
-  new THREE.BoxGeometry(2 ,0.3 , 2),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(2 ,0.3 , 2),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 lilGardenWall3.receiveShadow = true
 lilGardenWall3.geometry.rotateX(- Math.PI * 0.5)
@@ -599,8 +599,8 @@ lilGardenWall3.position.z = -15.8
 scene.add(lilGardenWall3)
 
 const lilGardenBackWall = new THREE.Mesh(
-  new THREE.BoxGeometry(3.6,0.3, 2),
-  new THREE.MeshStandardMaterial({color: 0x636363})
+    new THREE.BoxGeometry(3.6,0.3, 2),
+    new THREE.MeshStandardMaterial({color: 0x636363})
 )
 lilGardenBackWall.receiveShadow = true
 lilGardenBackWall.geometry.rotateX(- Math.PI * 0.5)
@@ -621,7 +621,7 @@ const sampler = new MeshSurfaceSampler(grassStartFloor).build();
 const bladesCount = 50000
 const bladeGeometry = new THREE.ConeGeometry(0.05, 0.2, 3);
 const bladeMaterial = new THREE.MeshStandardMaterial({
-  color: 0x008000
+    color: 0x008000
 });
 const blades = new THREE.InstancedMesh(bladeGeometry, bladeMaterial, bladesCount);
 blades.castShadow = true
@@ -633,11 +633,11 @@ scene.add(blades);
 const tempPosition = new THREE.Vector3();
 const tempObject = new THREE.Object3D();
 for (let i = 0; i < bladesCount; i++) {
-  sampler.sample(tempPosition);
-  tempObject.position.set(tempPosition.x, tempPosition.y, tempPosition.z);
-  tempObject.scale.setScalar(Math.random() * 0.4 + 0.4);
-  tempObject.updateMatrix();
-  blades.setMatrixAt(i, tempObject.matrix);
+    sampler.sample(tempPosition);
+    tempObject.position.set(tempPosition.x, tempPosition.y, tempPosition.z);
+    tempObject.scale.setScalar(Math.random() * 0.4 + 0.4);
+    tempObject.updateMatrix();
+    blades.setMatrixAt(i, tempObject.matrix);
 }
 
 
@@ -646,7 +646,7 @@ const sampler2 = new MeshSurfaceSampler(grassEndFloor).build();
 const bladesCount2 = 5000
 const bladeGeometry2 = new THREE.ConeGeometry(0.05, 0.2, 3);
 const bladeMaterial2 = new THREE.MeshStandardMaterial({
-  color: 0x154215
+    color: 0x154215
 });
 const blades2 = new THREE.InstancedMesh(bladeGeometry2, bladeMaterial2, bladesCount2);
 blades2.castShadow = true
@@ -658,11 +658,11 @@ scene.add(blades2);
 const tempPosition2 = new THREE.Vector3();
 const tempObject2 = new THREE.Object3D();
 for (let i = 0; i < bladesCount2; i++) {
-  sampler2.sample(tempPosition2);
-  tempObject2.position.set(tempPosition2.x, tempPosition2.y, tempPosition2.z - 28);
-  tempObject2.scale.setScalar(Math.random() * 0.4 + 0.4);
-  tempObject2.updateMatrix();
-  blades2.setMatrixAt(i, tempObject2.matrix);
+    sampler2.sample(tempPosition2);
+    tempObject2.position.set(tempPosition2.x, tempPosition2.y, tempPosition2.z - 28);
+    tempObject2.scale.setScalar(Math.random() * 0.4 + 0.4);
+    tempObject2.updateMatrix();
+    blades2.setMatrixAt(i, tempObject2.matrix);
 }
 
 /**
@@ -737,23 +737,23 @@ const effectController = {
 
 function guiChanged() {
 
-  const uniforms = sky.material.uniforms;
-  uniforms[ 'turbidity' ].value = effectController.turbidity;
-  uniforms[ 'rayleigh' ].value = effectController.rayleigh;
-  uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient;
-  uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG;
+    const uniforms = sky.material.uniforms;
+    uniforms[ 'turbidity' ].value = effectController.turbidity;
+    uniforms[ 'rayleigh' ].value = effectController.rayleigh;
+    uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient;
+    uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG;
 
-  const phi = THREE.MathUtils.degToRad( 90 - effectController.elevation );
-  const theta = THREE.MathUtils.degToRad( effectController.azimuth );
+    const phi = THREE.MathUtils.degToRad( 90 - effectController.elevation );
+    const theta = THREE.MathUtils.degToRad( effectController.azimuth );
 
-  sun.setFromSphericalCoords( 1, phi, theta );
-  directionalLight.position.copy(sun)
-  directionalLight.position.multiplyScalar(100)
+    sun.setFromSphericalCoords( 1, phi, theta );
+    directionalLight.position.copy(sun)
+    directionalLight.position.multiplyScalar(100)
 
-  uniforms[ 'sunPosition' ].value.copy( sun );
+    uniforms[ 'sunPosition' ].value.copy( sun );
 
-  renderer.toneMappingExposure = effectController.exposure;
-  renderer.render( scene, camera );
+    renderer.toneMappingExposure = effectController.exposure;
+    renderer.render( scene, camera );
 
 }
 
@@ -782,40 +782,40 @@ let speed = 1
 
 window.addEventListener('keydown', (event) =>
 {
-  if(event.key === ('z' || 'arrowUp')){
-    up = true
-  }
-  if(event.key === 's'){
-    bottom = true
-  }
-  if(event.key === 'd'){
-    right = true
-  }
-  if(event.key === 'q'){
-    left = true
-  }
-  if(event.key === 'Shift'){
-    sprint = true
-  }
+    if(event.key === 'z' || event.key === 'arrowUp'){
+        up = true
+    }
+    if(event.key === 's'){
+        bottom = true
+    }
+    if(event.key === 'd'){
+        right = true
+    }
+    if(event.key === 'q'){
+        left = true
+    }
+    if(event.key === 'Shift'){
+        sprint = true
+    }
 })
 
 window.addEventListener('keyup', (event) =>
 {
-  if(event.key === 'z' ){
-    up = false
-  }
-  if(event.key === 's'){
-    bottom = false
-  }
-  if(event.key === 'd'){
-    right = false
-  }
-  if(event.key === 'q'){
-    left = false
-  }
-  if(event.key === 'Shift'){
-    sprint = true
-  }
+    if(event.key === 'z' ){
+        up = false
+    }
+    if(event.key === 's'){
+        bottom = false
+    }
+    if(event.key === 'd'){
+        right = false
+    }
+    if(event.key === 'q'){
+        left = false
+    }
+    if(event.key === 'Shift'){
+        sprint = false
+    }
 })
 
 let previousTime = Date.now()
@@ -831,13 +831,13 @@ const loop = () =>
     // Update controls
     // controls.update()
 
-
-        const currentTime = Date.now()
-        const deltaTime = currentTime - previousTime
-        previousTime = currentTime
+    const currentTime = Date.now()
+    const deltaTime = currentTime - previousTime
+    previousTime = currentTime
         
     const playerDirection = new THREE.Vector3()
 
+    speed = sprint ? 2 : 1
     if(up){
       playerDirection.z = deltaTime * speed * 0.002
     }
@@ -850,46 +850,39 @@ const loop = () =>
     if(left){
       playerDirection.x = deltaTime * speed * 0.002
     }
-    if(sprint){
-      speed = 2
-    }else if(sprint = false){
-      speed =1
-    }
 
     playerDirection.applyAxisAngle(new THREE.Vector3(0,1,0), avatar.rotation.y)
 
     if(avatar){
-      avatar.position.add(playerDirection)
-      
-      /**
-      * Camera & Avatar Moves
-      */
+        avatar.position.add(playerDirection)
+        
+        /**
+        * Camera & Avatar Moves
+        */
+        document.body.addEventListener( 'mousedown', () => {
 
-     document.body.addEventListener( 'mousedown', () => {
+        document.body.requestPointerLock();
 
-       document.body.requestPointerLock();
+        } );
 
-     } );
+        document.body.addEventListener( 'mousemove', (event) => {
 
-     document.body.addEventListener( 'mousemove', (event) => {
-
-       if ( document.pointerLockElement === document.body ) 
-       {
-           camera.rotation.y -= event.movementX / 500000000
-           camera.rotation.x -= event.movementY / 1000000
-           
-           avatar.rotation.y -= event.movementX / 300000
-
-       }
-     })
-    }else if(avatar = null){
+            if(document.pointerLockElement === document.body) 
+            {
+                camera.rotation.y -= event.movementX / 500000000
+                camera.rotation.x -= event.movementY / 1000000
+                
+                avatar.rotation.y -= event.movementX / 300000
+            }
+        })
+    } else if(avatar = null) {
       camera.position.set(0, 2.2, 1)
     }
     // console.log(camera.rotation.x)
     if (camera.rotation.x < -1){
-      camera.rotation.x = -0.999
+        camera.rotation.x = -0.999
     }else if(camera.rotation.x > 1){
-      camera.rotation.x = 0.999
+        camera.rotation.x = 0.999
     }
 
     // Render

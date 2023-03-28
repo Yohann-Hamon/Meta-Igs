@@ -450,6 +450,7 @@ gltfLoader.load(
  * Scene
  */
 const scene = new THREE.Scene()
+scene.fog = new THREE.FogExp2('#b2c1cb', 0.02)
 // const axesHelper = new THREE.AxesHelper( 100 )
 // scene.add( axesHelper )
 

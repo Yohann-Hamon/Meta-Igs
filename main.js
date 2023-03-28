@@ -137,10 +137,6 @@ gltfLoader.load(
         avatar.position.x = 0
         avatar.position.y = 0
         avatar.position.z = 0
-        avatar.add(camera)
-        camera.lookAt(avatar.position)
-        camera.position.set(avatar.position.x, avatar.position.y + 2.2, avatar.position.z - 2)
-        camera.rotation.y = Math.PI * 1
 
         avatar.traverse((child) => {
             if(child.isMesh)
@@ -149,7 +145,7 @@ gltfLoader.load(
                 child.receiveShadow = true
             }
         })
-        avatar.rotation.y = camera.rotation.y
+        // avatar.rotation.y = camera.rotation.y
 
         scene.add(avatar)
     }
@@ -484,6 +480,7 @@ window.addEventListener('resize', () =>
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(40, sizes.width / sizes.height, 0.1, 200)
+camera.position.set(0, 2, 3)
 camera.rotation.reorder('YXZ')
 scene.add(camera)
 
@@ -778,48 +775,79 @@ let left = false
 let bottom = false
 let right = false
 let sprint = false
-let speed = 1
 
 window.addEventListener('keydown', (event) =>
 {
-    if(event.key === 'z' || event.key === 'arrowUp'){
+    if(event.code === 'KeyW' || event.code === 'ArrowUp'){
         up = true
     }
-    if(event.key === 's'){
+    if(event.code === 'KeyS' || event.code === 'ArrowDown'){
         bottom = true
     }
-    if(event.key === 'd'){
+    if(event.code === 'KeyD' || event.code === 'ArrowRight'){
         right = true
     }
-    if(event.key === 'q'){
+    if(event.code === 'KeyA' || event.code === 'ArrowLeft'){
         left = true
     }
-    if(event.key === 'Shift'){
+    if(event.code === 'ShiftLeft'){
         sprint = true
     }
 })
 
 window.addEventListener('keyup', (event) =>
 {
-    if(event.key === 'z' ){
+    if(event.code === 'KeyW' || event.code === 'ArrowUp'){
         up = false
     }
-    if(event.key === 's'){
+    if(event.code === 'KeyS' || event.code === 'ArrowDown'){
         bottom = false
     }
-    if(event.key === 'd'){
+    if(event.code === 'KeyD' || event.code === 'ArrowRight'){
         right = false
     }
-    if(event.key === 'q'){
+    if(event.code === 'KeyA' || event.code === 'ArrowLeft'){
         left = false
     }
-    if(event.key === 'Shift'){
+    if(event.code === 'ShiftLeft'){
         sprint = false
     }
 })
 
 let previousTime = Date.now()
 
+/**
+* Camera & Avatar Moves
+*/
+const player = {}
+player.position = new THREE.Vector3(0, 0, 0)
+player.view = {
+    theta: { value: 0 },
+    phi: { value: Math.PI * 0.5, min: Math.PI * 0.2, max: Math.PI * 0.7 },
+    elevation: 1.65,
+    radius: 1.5
+}
+
+document.body.addEventListener( 'mousedown', () => {
+
+    document.body.requestPointerLock();
+
+} );
+
+document.body.addEventListener( 'mousemove', (event) => {
+
+    if(document.pointerLockElement === document.body) 
+    {
+        player.view.theta.value -= event.movementX / 1000
+        player.view.phi.value -= event.movementY / 1000
+
+        if(player.view.phi.value < player.view.phi.min)
+            player.view.phi.value = player.view.phi.min
+
+        if(player.view.phi.value > player.view.phi.max)
+            player.view.phi.value = player.view.phi.max
+    }
+})
 
 /**
  * Loop
@@ -835,54 +863,45 @@ const loop = () =>
     const deltaTime = currentTime - previousTime
     previousTime = currentTime
         
-    const playerDirection = new THREE.Vector3()
-
-    speed = sprint ? 2 : 1
-    if(up){
-      playerDirection.z = deltaTime * speed * 0.002
-    }
-    if(bottom){
-      playerDirection.z = -deltaTime * speed * 0.002
-    }
-    if(right){
-      playerDirection.x = -deltaTime * speed * 0.002
-    }
-    if(left){
-      playerDirection.x = deltaTime * speed * 0.002
-    }
-
-    playerDirection.applyAxisAngle(new THREE.Vector3(0,1,0), avatar.rotation.y)
-
     if(avatar){
-        avatar.position.add(playerDirection)
-        
-        /**
-        * Camera & Avatar Moves
-        */
-        document.body.addEventListener( 'mousedown', () => {
 
-        document.body.requestPointerLock();
 
-        } );
+        // Player position
+        const playerDirection = new THREE.Vector3()
 
-        document.body.addEventListener( 'mousemove', (event) => {
+        let speed = sprint ? 2 : 1
+        speed *= deltaTime
+        speed *= 0.002
 
-            if(document.pointerLockElement === document.body) 
-            {
-                camera.rotation.y -= event.movementX / 500000000
-                camera.rotation.x -= event.movementY / 1000000
-                
-                avatar.rotation.y -= event.movementX / 300000
-            }
-        })
-    } else if(avatar = null) {
-      camera.position.set(0, 2.2, 1)
-    }
-    // console.log(camera.rotation.x)
-    if (camera.rotation.x < -1){
-        camera.rotation.x = -0.999
-    }else if(camera.rotation.x > 1){
-        camera.rotation.x = 0.999
+        if(up){
+            playerDirection.z = -speed
+        }
+        if(bottom){
+            playerDirection.z = speed
+        }
+        if(right){
+            playerDirection.x = speed
+        }
+        if(left){
+            playerDirection.x = -speed
+        }
+
+        playerDirection.applyAxisAngle(new THREE.Vector3(0, 1, 0), player.view.theta.value)
+
+        player.position.add(playerDirection)
+        avatar.position.copy(player.position)
+
+        // Player view
+        const cameraPosition = new THREE.Vector3()
+        cameraPosition.setFromSphericalCoords(player.view.radius, player.view.phi.value, player.view.theta.value)
+        cameraPosition.y += player.view.elevation
+        cameraPosition.add(player.position)
+
+        const cameraTarget = player.position.clone()
+        cameraTarget.y += player.view.elevation
+
+        camera.position.copy(cameraPosition)
+        camera.lookAt(cameraTarget)
     }
 
     // Render

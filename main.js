@@ -671,12 +671,13 @@ scene.add(ambientLight)
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 10)
 directionalLight.castShadow = true
-directionalLight.shadow.camera.top = 10
-directionalLight.shadow.camera.right = 10
-directionalLight.shadow.camera.bottom = -10
-directionalLight.shadow.camera.left = -10
+directionalLight.shadow.camera.top = 20
+directionalLight.shadow.camera.right = 20
+directionalLight.shadow.camera.bottom = -20
+directionalLight.shadow.camera.left = -20
 directionalLight.shadow.camera.near = 50
 directionalLight.shadow.camera.far = 200
+directionalLight.shadow.mapSize.set(2048, 2048)
 scene.add(directionalLight)
 directionalLight.shadow.normalBias = 0.025
 
